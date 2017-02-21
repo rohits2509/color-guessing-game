@@ -1,4 +1,6 @@
-var colors = generateRandomColors(6);
+	
+	var sumNum = 6;
+	var colors = generateRandomColors(sumNum);
 
 	var colorDisplay = document.getElementById("display")
 	var squares = document.querySelectorAll(".square");
@@ -7,9 +9,43 @@ var colors = generateRandomColors(6);
 	var h1 = document.querySelector("h1");
 	var resetButton = document.querySelector("#reset");
 
+	var easyBtn = document.querySelector("#easyBtn");
+	var hardBtn = document.querySelector("#hardBtn");
+
+
+	//easy mode
+	easyBtn.addEventListener("click", function(){
+		easyBtn.classList.add ("selected");
+		hardBtn.classList.remove ("selected");
+		sumNum = 3;
+		colors = generateRandomColors(sumNum);
+		pickedColor = pickColor();
+		for(var i = 0; i < squares.length; i++){
+			if(colors[i]){
+			squares[i].style.background = colors[i];
+			}else{
+				squares[i].style.display = "none";
+			}
+	}
+	});
+
+	//hard mode
+	hardBtn.addEventListener("click", function(){
+		hardBtn.classList.add ("selected");
+		easyBtn.classList.remove ("selected");
+		sumNum = 6;
+		colors = generateRandomColors(sumNum);
+		pickedColor = pickColor();
+		for(var i = 0; i < squares.length; i++){
+		squares[i].style.background = colors[i];
+		squares[i].style.display = "block";
+	}
+	});
+
+
 	resetButton.addEventListener("click", function(){
 		//generate a random color
-		colors = generateRandomColors(6);
+		colors = generateRandomColors(sumNum);
 		//select a random color
 		pickedColor = pickColor();
 		for(var i = 0; i < squares.length; i++){
@@ -34,7 +70,7 @@ var colors = generateRandomColors(6);
 		if(clickedColor === pickedColor){
 			changeColors(clickedColor);
 			message.textContent = "Correct"
-			resetButton.textContent = "Play Again!"
+			resetButton.textContent = "Play Again?"
 			h1.style.background = clickedColor;
 		} else{
 			this.style.background = "#232323"
@@ -51,6 +87,9 @@ function changeColors(color){
 }
 
 function pickColor(){
+		//get random color and push into array
+		
+	//return that array
 	var random = Math.floor(Math.random() * colors.length);
 	return colors[random];
 }
@@ -60,10 +99,8 @@ function generateRandomColors(num){
 	var arr = []
 	//add num random colors to array
 	for(var i = 0; i < num; i++){
-		//get random color and push into array
 		arr.push(randomColor())
 	}
-	//return that array
 	return arr;
 }
 
