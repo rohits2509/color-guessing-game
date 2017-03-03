@@ -16,7 +16,7 @@ function init(){
 	setupSquares();
 	reset();
 }
-
+//for different modes
 function setupModeButtons(){
 	for(var i = 0; i < modeButtons.length; i++){
 		modeButtons[i].addEventListener("click", function(){
